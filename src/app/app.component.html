@@ -1,4 +1,44 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<div fxLayout="row" fxLayoutAlign="space-around center">
+  <div>
+      <h1>Date Picked</h1>
+      <h2>From Observable</h2>
+      <p>{{ datePicked$ | async | date: 'full':'UTC' }}</p>
+      <h2>From Getter</h2>
+      <p>{{ getDatePicked | date: 'full':'UTC' }}</p>
+  </div>
+</div>
+<form [formGroup]="testDateForm">
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+      <mat-form-field>
+          <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="datePicked"
+              placeholder="Choose a date"
+          />
+          <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+      <button
+          mat-raised-button
+          color="accent"
+          (click)="previous()"
+          [disabled]="longAgo"
+      >
+          <mat-icon>navigate_before</mat-icon> Previous
+      </button>
+      <button
+          mat-raised-button
+          color="primary"
+          (click)="next()"
+          [disabled]="onHorizon"
+      >
+          Next <mat-icon>navigate_next</mat-icon>
+      </button>
+  </div>
+</form>
