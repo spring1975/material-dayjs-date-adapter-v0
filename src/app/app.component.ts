@@ -1,5 +1,5 @@
-import * as dayjs from 'dayjs';
-import * as utc from 'dayjs/plugin/utc.js';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
@@ -22,7 +22,6 @@ const testDateFormConfig: FormConfig<TestDateForm> = {
   styleUrls: [ './app.component.css' ]
 })
 export class AppComponent extends SelfDestruct implements OnInit {
-
 
   readonly testDateForm = this.fb.group(testDateFormConfig);
 
