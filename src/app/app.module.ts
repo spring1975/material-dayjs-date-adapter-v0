@@ -1,13 +1,10 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule]
+  imports: [SharedModule],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
-S;
+export class AppModule { }
