@@ -33,8 +33,8 @@ import { MAT_DAYJS_DATE_ADAPTER_OPTIONS } from './shared/utils/material-dayjs-ad
   ],
   providers: [
     /* https://material.angular.io/components/datepicker/overview#choosing-a-date-implementation-and-date-format-settings
-     * By default the MomentDateAdapter will creates dates in your time zone specific locale.
-     * You can change the default behaviour to parse dates as UTC by providing the
+     * By default the DayjsDateAdapter will create dates in your time zone specific locale.
+     * You can change the default behavior to parse dates as UTC by providing the
      * MAT_MOMENT_DATE_ADAPTER_OPTIONS and setting it to useUtc: true.
      */
     {

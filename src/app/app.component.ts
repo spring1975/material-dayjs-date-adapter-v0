@@ -21,7 +21,7 @@ const testDateFormConfig: FormConfig<TestDateForm> = {
   templateUrl: './app.component.html',
   styleUrls: [ './app.component.css' ]
 })
-export class AppComponent extends SelfDestruct implements OnInit {
+export class AppComponent implements OnInit {
 
   readonly testDateForm = this.fb.group(testDateFormConfig);
 
@@ -49,7 +49,6 @@ export class AppComponent extends SelfDestruct implements OnInit {
       private readonly dateAdapter: DateAdapter<dayjs.Dayjs>,
       private readonly fb: FormBuilder
   ) {
-      super();
       dayjs.extend(utc);
   }
 
