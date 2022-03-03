@@ -11,11 +11,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDayjsDateModule } from './shared/utils/material-dayjs-adapter';
 import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MAT_DAYJS_DATE_ADAPTER_OPTIONS } from './shared/utils/material-dayjs-adapter/dayjs-date-adapter';
+import { DateAdapter, MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DayjsDateAdapter, MAT_DAYJS_DATE_ADAPTER_OPTIONS } from './shared/utils/material-dayjs-adapter/dayjs-date-adapter';
+import { MAT_DAYJS_DATE_FORMATS } from './shared/utils/material-dayjs-adapter/dayjs-date-formats';
+import { DateOnlyPipe } from './dateonly.pipe';
+import { DayjsPipe } from './dayjs.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DateOnlyPipe, DayjsPipe],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -35,13 +38,16 @@ import { MAT_DAYJS_DATE_ADAPTER_OPTIONS } from './shared/utils/material-dayjs-ad
     /* https://material.angular.io/components/datepicker/overview#choosing-a-date-implementation-and-date-format-settings
      * By default the DayjsDateAdapter will create dates in your time zone specific locale.
      * You can change the default behavior to parse dates as UTC by providing the
-     * MAT_MOMENT_DATE_ADAPTER_OPTIONS and setting it to useUtc: true.
+     * MAT_DAYJS_DATE_ADAPTER_OPTIONS and setting it to useUtc: true.
      */
+    { provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true} },
     {
-      provide: MAT_DAYJS_DATE_ADAPTER_OPTIONS,
-      useValue: { useUtc: true }
-    }
-  ],
+        provide: DateAdapter,
+        useClass: DayjsDateAdapter,
+        deps: [MAT_DATE_LOCALE, MAT_DAYJS_DATE_ADAPTER_OPTIONS]
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_DAYJS_DATE_FORMATS },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

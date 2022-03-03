@@ -2,19 +2,10 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { startWith, filter, map } from 'rxjs';
-import { FormConfig } from './shared/forms/types';
-import { SelfDestruct } from './shared/utils/self-destruct';
-
-interface TestDateForm {
-  datePicked: dayjs.Dayjs;
-}
-const testDateFormConfig: FormConfig<TestDateForm> = {
-  datePicked: ['']
-};
-
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'my-app',
@@ -23,53 +14,66 @@ const testDateFormConfig: FormConfig<TestDateForm> = {
 })
 export class AppComponent implements OnInit {
 
-  readonly testDateForm = this.fb.group(testDateFormConfig);
 
-  today = dayjs.utc().startOf('day');
-  datePicked = this.testDateForm.get('datePicked');
+  readonly initialComponentDate = dayjs();
+  readonly initialComponentDateAsUTC = dayjs().utc();
+  readonly initialComponentDateAsUTCLocal = dayjs().utc().local();
 
-  datePicked$ = this.datePicked?.valueChanges.pipe(
-      startWith(this.today),
+  // Datepicker takes `Dayjs` objects instead of `Date` objects.
+  readonly datePicked = new FormControl();
+  readonly fcDate2 = new FormControl();
+
+  readonly datePicked$ = this.datePicked?.valueChanges.pipe(
+      startWith(dayjs(this.api.initializedDate)),
       filter<dayjs.Dayjs>(Boolean),
       map((d) => d.toDate())
   );
 
-  get getDatePicked() {
-      return this.datePicked?.value;
-  }
-
   get longAgo() {
-      return dayjs(this.datePicked?.value).isBefore(dayjs.utc().subtract(6, 'day'), 'day');
+      return dayjs(this.datePicked?.value).isBefore(dayjs(this.api.initializedDate).utc().subtract(6, 'day'), 'day');
   }
   get onHorizon() {
-      return dayjs(this.datePicked?.value).isAfter(dayjs.utc().add(6, 'day'), 'day');
+      return dayjs(this.datePicked?.value).isAfter(dayjs(this.api.initializedDate).utc().add(6, 'day'), 'day');
   }
 
   constructor(
-      private readonly dateAdapter: DateAdapter<dayjs.Dayjs>,
-      private readonly fb: FormBuilder
+      public readonly api: ApiService,
+      private readonly dateAdapter: DateAdapter<dayjs.Dayjs>
   ) {
       dayjs.extend(utc);
   }
 
   ngOnInit(): void {
-      this.testDateForm.patchValue({
-          datePicked: this.today
-      }
-      );
+      console.log('datepicker value initialized as', this.datePicked.value);
+      this.setupDtoDateListener();
+      this.setDatepickerOnInit();
+
   }
 
-  setLocale(locale: string) {
-      dayjs.locale(locale);
-      this.dateAdapter.setLocale(locale);
+  setupDtoDateListener() {
+    this.datePicked.valueChanges.subscribe((dt: dayjs.Dayjs) => {
+      console.log('FormControl value set to: ', dt);
+      this.api.saveDate(dt);
+      this.fcDate2.setValue(this.api.getDate());
+    })
+  }
+
+  setDatepickerOnInit() {
+    const dt = this.api.getDate();
+    console.log('api value received: ', dt);
+    this.datePicked.setValue(dt);
   }
 
   previous() {
-      this.datePicked?.patchValue(this.getDatePicked.subtract(1, 'day'));
+      this.datePicked?.setValue(this.datePicked?.value.subtract(1, 'day'));
   }
 
   next() {
-      this.datePicked?.patchValue(this.getDatePicked.add(1, 'day'));
+      this.datePicked?.setValue(this.datePicked?.value.add(1, 'day'));
+  }
+
+  isDayjs(){
+    return dayjs.isDayjs(this.datePicked.value);
   }
 
 }

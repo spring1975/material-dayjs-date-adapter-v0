@@ -4,24 +4,15 @@
       <h2>From Observable</h2>
       <p>{{ datePicked$ | async | date: 'full':'UTC' }}</p>
       <h2>From Getter</h2>
-      <p>{{ getDatePicked | date: 'full':'UTC' }}</p>
+      <p>{{ datePicked?.value | date: 'full':'UTC' }}</p>
   </div>
 </div>
-<form [formGroup]="testDateForm">
   <div fxLayout="row" fxLayoutAlign="space-around center">
-      <mat-form-field>
-          <input
-              matInput
-              [matDatepicker]="picker"
-              formControlName="datePicked"
-              placeholder="Choose a date"
-          />
-          <mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="dp" placeholder="dayjs.js datepicker" [formControl]="datePicked">
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp></mat-datepicker>
+    </mat-form-field>
   </div>
   <div fxLayout="row" fxLayoutAlign="space-around center">
       <button
@@ -41,4 +32,67 @@
           Next <mat-icon>navigate_next</mat-icon>
       </button>
   </div>
-</form>
+
+  <pre>
+    initialComponentDate
+    dayjs()
+      {{ initialComponentDate.format('LLL') }}
+    dayjs().utc()
+      {{ initialComponentDateAsUTC.format('LLL') }}
+    dayjs().utc().local()
+      {{ initialComponentDateAsUTCLocal.format('LLL') }}
+    initialComponentDate
+    {{ initialComponentDate.toDate() | date: 'HH:mm' }}
+     initialComponentDate | 'utc'
+    {{ initialComponentDate.toDate() | date: 'HH:mm' }}
+    initialComponentDateAsUTC
+    {{ initialComponentDateAsUTC.toDate()  | date: 'HH:mm' }}
+    initialComponentDateAsUTC | 'utc'
+    {{ initialComponentDateAsUTC.toDate()  | date: 'HH:mm' : 'utc'}}
+  </pre>
+  <h2>Date picked Value (<code>datePicker.value</code>)</h2>
+  <dl>
+      <dt>Is a dayjs</dt>
+      <dd>{{isDayjs()}}<dd>
+      <dt>Interpolated <code>.format('MM-dd-yyyy')</code></dt>
+      <dd>{{datePicked.value.format('MM-DD-YYYY') }}<dd>
+      <dt>Interpolated <code>utc().format('MM-dd-yyyy')</code></dt>
+      <dd>{{datePicked.value.utc().format('MM-DD-YYYY') }}<dd>
+      <dt>Interpolated by Angular</dt>
+      <dd>{{datePicked.value}}<dd>
+      <dt>Angular date pipe format 'MM-dd-yyyy'</dt>
+      <dd>{{datePicked.value | date: 'MM-dd-yyyy'}}<dd>
+      <dt>Custom dateOnly pipe</dt>
+      <dd>{{datePicked.value | dateOnly}}<dd>
+      <dt>As will be sent to server (dateObject.toJSON())</dt>
+      <dd>{{datePicked.value | json}}<dd>
+  </dl>
+
+  <h3><code>api.serializedDateLiteral</code></h3>
+  {{ api.serializedDateLiteral }}
+
+  <h2>Stored value in service <code>api.getDate()</code></h2>
+  <dl>
+      <dt><code>api.getDate()</code> just interpolated</dt>
+      <dd>{{api.getDate()}}<dd>
+      <dt><code>api.getDate()</code> with Angular date pipe format 'full'</dt>
+      <dd>{{api.getDate() | dayjs: 'full'}}<dd>
+      <dt><code>api.getDate()</code> with Angular date pipe format 'MM-dd-yyyy'</dt>
+      <dd>{{api.getDate() | dayjs: 'MM-dd-yyyy'}}<dd>
+      <dt><code>api.getDate()</code> with Angular date pipe format 'MM-dd-yyyy' in 'UTC'</dt>
+      <dd>{{api.getDate() | dayjs: 'MM-dd-yyyy' : 'UTC'}}<dd>
+      <dt><code>api.getDate()</code> with dayjs <code>.format('MM-dd-yyyy')</code></dt>
+      <dd>{{api.getDate().format('MM-DD-YYYY') }}<dd>
+      <dt><code>api.getDate()</code> with dayjs <code>utc().format('MM-dd-yyyy')</code></dt>
+      <dd>{{api.getDate().utc().format('MM-DD-YYYY') }}<dd>
+      <dt><code>api.getDate()</code> withCustom dateOnly pipe</dt>
+      <dd>{{api.getDate() | dateOnly}}<dd>
+  </dl>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="dp2" placeholder="day.js datepicker" [formControl]="fcDate2">
+    <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+    <mat-datepicker #dp2></mat-datepicker>
+  </mat-form-field>
+
+

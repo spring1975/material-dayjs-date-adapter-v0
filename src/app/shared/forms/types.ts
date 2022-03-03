@@ -3,7 +3,7 @@ import { AbstractControl, AbstractControlOptions, AsyncValidatorFn, ValidationEr
 /**
  * Strongly type a form group. If the interface changes, the form should change with it.
  */
-export type FormConfig<T extends Record<symbol, unknown> = Record<symbol, unknown>> = {
+export type FormConfig<T extends Record<string, any> = Record<string, any>> = {
     [K in keyof T]:
         | [
               T[K] | '',
