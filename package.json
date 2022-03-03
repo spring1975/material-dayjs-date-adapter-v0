@@ -1,41 +1,57 @@
 {
-  "name": "angular",
+  "name": "material-dayjs-date-adapter",
   "version": "0.0.0",
-  "private": true,
   "dependencies": {
-    "@angular/animations": "^12.1.0",
-    "@angular/cdk": "^12.2.2",
-    "@angular/common": "^12.1.0",
-    "@angular/compiler": "^12.1.0",
-    "@angular/core": "^12.1.0",
+    "@angular/animations": "~12.0.0",
+    "@angular/cdk": "~12.2.13",
+    "@angular/common": "~12.0.0",
+    "@angular/compiler": "~12.0.0",
+    "@angular/core": "~12.0.0",
     "@angular/flex-layout": "^12.0.0-beta.34",
-    "@angular/forms": "^12.1.0",
-    "@angular/material": "^12.2.2",
-    "@angular/platform-browser": "^12.1.0",
-    "@angular/platform-browser-dynamic": "^12.1.0",
-    "@angular/router": "^12.1.0",
+    "@angular/forms": "~12.0.0",
+    "@angular/material": "~12.2.13",
+    "@angular/platform-browser": "~12.0.0",
+    "@angular/platform-browser-dynamic": "~12.0.0",
+    "@angular/router": "~12.0.0",
     "dayjs": "^1.10.6",
-    "rxjs": "^7.1.0",
+    "rxjs": "^6.5.3",
     "tslib": "^2.3.0",
+    "webpack-bundle-analyzer": "^4.5.0",
     "zone.js": "~0.11.4"
   },
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
+    "start:demo": "ng serve demo -o",
     "build": "ng build",
+    "build:lib": "yarn build material-dayjs-date-adapter",
     "test": "ng test",
     "test:cc": "ng test --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~12.2.2",
-    "@angular/cli": "~12.2.2",
-    "@angular/compiler-cli": "~12.2.2",
+    "@angular-devkit/build-angular": "~12.0.0",
+    "@angular-devkit/core": "^12.0.0",
+    "@angular-devkit/schematics": "^12.0.0",
+    "@angular-eslint/builder": "12.1.0",
+    "@angular-eslint/eslint-plugin": "12.1.0",
+    "@angular-eslint/eslint-plugin-template": "12.1.0",
+    "@angular-eslint/schematics": "12.1.0",
+    "@angular-eslint/template-parser": "12.1.0",
+    "@angular/cli": "~12.0.0",
+    "@angular/compiler-cli": "~12.0.0",
+    "@semantic-release/git": "^10.0.1",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "4.23.0",
+    "@typescript-eslint/parser": "4.23.0",
     "codelyzer": "^6.0.0",
-    "jasmine-core": "~3.6.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-jsdoc": "30.7.6",
+    "eslint-plugin-prefer-arrow": "1.2.2",
+    "jasmine-core": "~3.8.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.4",
     "karma-chrome-launcher": "~3.1.0",
@@ -45,9 +61,37 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-junit-reporter": "^2.0.1",
     "karma-spec-reporter": "^0.0.33",
+    "ng-packagr": "^12.0.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
-    "tslint": "~6.1.0",
-    "typescript": "~4.3.5"
+    "typescript": "~4.2.4"
+  },
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "./dist/material-dayjs-date-adapter"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "./dist/material-dayjs-date-adapter/package.json"
+          ],
+          "message": "Release <%= nextRelease.version %> - <%= new Date().toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' }) %> [skip ci]\n\n<%= nextRelease.notes %>"
+        }
+      ]
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spring1975/material-dayjs-date-adapter.git"
   }
 }

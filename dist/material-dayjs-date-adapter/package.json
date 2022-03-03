@@ -1,0 +1,45 @@
+{
+  "name": "@spring1975/material-dayjs-date-adapter",
+  "version": "1.0.0-beta.1",
+  "author": {
+    "name": "Roger Spring ",
+    "url": "https://github.com/spring1975/"
+  },
+  "description": "A MatDateAdapter for Day.js.",
+  "keywords": [
+    "adapter",
+    "angular",
+    "angular-material",
+    "date",
+    "datepicker",
+    "dayjs",
+    "mat-date-adapter",
+    "mat-datepicker",
+    "material",
+    "typescript",
+    "utc"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": ">= 7.2.15",
+    "@angular/core": ">= 7.2.15",
+    "@angular/material": ">= 7.3.7",
+    "dayjs": ">= 1.8.17"
+  },
+  "repository": {
+    "url": "https://github.com/spring1975/material-dayjs-date-adapter"
+  },
+  "main": "bundles/spring1975-material-dayjs-date-adapter.umd.js",
+  "module": "fesm2015/spring1975-material-dayjs-date-adapter.js",
+  "es2015": "fesm2015/spring1975-material-dayjs-date-adapter.js",
+  "esm2015": "esm2015/spring1975-material-dayjs-date-adapter.js",
+  "fesm2015": "fesm2015/spring1975-material-dayjs-date-adapter.js",
+  "typings": "spring1975-material-dayjs-date-adapter.d.ts",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^2.1.0"
+  },
+  "scripts": {
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by Ivy in full compilation mode. This is not allowed.\\nPlease delete and rebuild the package with Ivy partial compilation mode, before attempting to publish.\\n')\" && exit 1"
+  }
+}

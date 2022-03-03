@@ -3,9 +3,44 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "material-dayjs-date-adapter": {
+      "projectType": "library",
+      "root": "projects/material-dayjs-date-adapter",
+      "sourceRoot": "projects/material-dayjs-date-adapter/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/material-dayjs-date-adapter/tsconfig.lib.json",
+            "project": "projects/material-dayjs-date-adapter/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/material-dayjs-date-adapter/src/test.ts",
+            "tsConfig": "projects/material-dayjs-date-adapter/tsconfig.spec.json",
+            "karmaConfig": "projects/material-dayjs-date-adapter/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/material-dayjs-date-adapter/tsconfig.lib.json",
+              "projects/material-dayjs-date-adapter/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
     "demo": {
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "projects/demo/src",
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
@@ -14,16 +49,16 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/demo",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.app.json",
+            "index": "projects/demo/src/index.html",
+            "main": "projects/demo/src/main.ts",
+            "polyfills": "projects/demo/src/polyfills.ts",
+            "tsConfig": "projects/demo/src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/demo/src/favicon.ico",
+              "projects/demo/src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "projects/demo/src/styles.css"
             ],
             "scripts": [],
             "aot": false,
@@ -38,8 +73,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "replace": "projects/demo/src/environments/environment.ts",
+                  "with": "projects/demo/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -75,17 +110,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
+            "main": "projects/demo/src/test.ts",
+            "polyfills": "projects/demo/src/polyfills.ts",
+            "tsConfig": "projects/demo/src/tsconfig.spec.json",
             "karmaConfig": "./karma.conf.js",
             "styles": [
 
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/demo/src/favicon.ico",
+              "projects/demo/src/assets"
             ]
           }
         },
@@ -93,8 +128,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
+              "projects/demo/src/tsconfig.app.json",
+              "projects/demo/src/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -104,5 +139,5 @@
       }
     }
   },
-  "defaultProject": "demo"
+  "defaultProject": "material-dayjs-date-adapter"
 }

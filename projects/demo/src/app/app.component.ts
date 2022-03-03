@@ -4,7 +4,7 @@ import utc from 'dayjs/plugin/utc';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
-import { startWith, filter, map } from 'rxjs';
+import { startWith, filter, map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 
 @Component({

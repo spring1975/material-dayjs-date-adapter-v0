@@ -14,7 +14,7 @@ import 'dayjs/locale/fr';
 import 'dayjs/locale/da';
 import 'dayjs/locale/de';
 
-import { DEC, FEB, JAN, MAR } from 'src/app/shared/testing/month-constants';
+import { DEC, FEB, JAN, MAR } from 'projects/material-dayjs-date-adapter/testing';
 import {
     DayjsDateAdapter,
     MAT_DAYJS_DATE_ADAPTER_OPTIONS
@@ -644,7 +644,6 @@ describe('DayjsDateAdapter', () => {
             adapter.setLocale('ja');
             expect(adapter.createDate(2017, JAN, 1).locale()).toBe('ja');
             expect(adapter.today().locale()).toBe('ja');
-            // expect(adapter.clone(dayjs()).locale()).toBe('ja');
             expect(adapter.parse('1/1/2017', 'MM/DD/YYYY')!.locale()).toBe(
                 'ja'
             );
@@ -759,20 +758,20 @@ describe('DayjsDateAdapter', () => {
             });
 
             it('should parse dates to UTC', () => {
-                expect(adapter.parse('1/2/2017', 'MM/DD/YYYY').isUTC()).toBe(
+                expect(adapter.parse('1/2/2017', 'MM/DD/YYYY')!.isUTC()).toBe(
                     true
                 );
             });
 
             it('should return UTC date when deserializing', () => {
                 expect(
-                    adapter.deserialize('1985-04-12T23:20:50.52Z').isUTC()
+                    adapter.deserialize('1985-04-12T23:20:50.52Z')!.isUTC()
                 ).toBe(true);
             });
 
             it('should return UTC date when deserializing date only', () => {
                 expect(
-                    adapter.deserialize('1985-04-12').isUTC()
+                    adapter.deserialize('1985-04-12')!.isUTC()
                 ).toBe(true);
             });
 
@@ -802,19 +801,19 @@ describe('DayjsDateAdapter', () => {
 
             it('should detect valid strings according to given format', () => {
                 expect(
-                    adapter.parse('1/2/2017', 'D/M/YYYY').format('l')
+                    adapter.parse('1/2/2017', 'D/M/YYYY')!.format('l')
                 ).toEqual(dayjs([2017, FEB, 1]).format('l'));
             });
 
             it('should detect invalid strings according to given format', () => {
                 expect(
-                    adapter.parse('2017-01-01', 'MM/DD/YYYY').isValid()
+                    adapter.parse('2017-01-01', 'MM/DD/YYYY')!.isValid()
                 ).toBe(false);
-                expect(adapter.parse('1/2/2017', 'MM/DD/YYYY').isValid()).toBe(
+                expect(adapter.parse('1/2/2017', 'MM/DD/YYYY')!.isValid()).toBe(
                     false
                 );
                 expect(
-                    adapter.parse('Jan 5, 2017', 'MMMM D, YYYY').isValid()
+                    adapter.parse('Jan 5, 2017', 'MMMM D, YYYY')!.isValid()
                 ).toBe(false);
             });
         });

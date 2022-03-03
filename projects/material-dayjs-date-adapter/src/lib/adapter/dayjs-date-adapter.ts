@@ -7,9 +7,8 @@ import * as LocalizedFormat from 'dayjs/plugin/localizedFormat';
 import * as customParseFormat from 'dayjs/plugin/customParseFormat';
 import * as arraySupport from 'dayjs/plugin/arraySupport';
 
-/**
- * Pulled from https://github.com/tabuckner/material-dayjs-adapter, then modified to satisfy tests
- */
+declare const ngDevMode: object | null;
+
 export interface DayJsDateAdapterOptions {
     /**
      * Turns the use of utc dates on or off.
